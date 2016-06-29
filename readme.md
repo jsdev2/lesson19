@@ -38,6 +38,7 @@ $('#some-element').on('click', function() {
 $('#some-element').fadeOut(2000, function() {
   $(this).fadeIn(3000);
 });
+```
 
 
 # The 'Mixed Content' problem.
