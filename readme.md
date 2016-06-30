@@ -30,6 +30,19 @@ $('#some-element').on('click', function() {
 });
 ```
 
+***Answer:*** Under the hood, what's going on here is our old friend `element.onclick = function() {...}` :
+
+```js
+document.getElementById('#some-element').onclick = function() {
+  var message = this.innerHTML;
+  alert(message);
+}
+```
+
+So we're basically adding a method -- `onclick` to the DOM element object, and when the user clicks on the button, the browser runs that method -- essentially by running `element.onclick()`, so the answer is category 2 above: running a method on an object, where the object is the DOM element.
+
+
+
 ***Even Tricker Question:*** Which of those categories does this example fall into?
 
 
@@ -40,6 +53,9 @@ $('#some-element').fadeOut(2000, function() {
 });
 ```
 
+***Answer:*** This is jQuery magic. Every time you run a jQuery function on a jQuery object, you always get a `this` which refers to all of the elements in the jQuery object, in turn. This is basically just because jQuery decided it wanted you to be able to do that, and it uses `.call()` internally to specify the context. So the answer is, under the hood, category 4 above: specifying the context with `.call()`
+
+The larger moral here is that often when using jQuery, you'll find that `this` refers to something convenient, but you'll have to remember what it is, and it won't necessarily be the same as the way `this` is set in vanilla JS, or in other libraries.
 
 # The 'Mixed Content' problem.
 
